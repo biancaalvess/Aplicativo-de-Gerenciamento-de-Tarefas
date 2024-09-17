@@ -1,48 +1,42 @@
-document.getElementById('add-task-btn').addEventListener('click', function() {
-    const task = document.getElementById('new-task').value;
-    
-    if (task) {
-        fetch('/add-task', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ task: task })
-        })
-        .then(response => response.json())
-        .then(data => {
-            updateTaskList(data.tasks);
-            document.getElementById('new-task').value = '';
-        });
+// Obter elementos do DOM
+const taskInput = document.getElementById('taskInput');
+const addTaskBtn = document.getElementById('addTaskBtn');
+const taskTableBody = document.querySelector('#taskTable tbody');
+const confirmationMsg = document.querySelector('.confirmation-msg');
+
+let taskCount = 0;
+
+// Adicionar tarefa
+addTaskBtn.addEventListener('click', () => {
+    const taskText = taskInput.value.trim();
+
+    if (taskText !== "") {
+        // Incrementar o contador de tarefas
+        taskCount++;
+
+        // Criar uma nova linha na tabela
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td>${taskCount}</td>
+            <td>${taskText}</td>
+            <td><button class="delete-btn" onclick="deleteTask(this)">Excluir</button></td>
+        `;
+        taskTableBody.appendChild(newRow);
+
+        // Exibir mensagem de confirmação
+        confirmationMsg.textContent = "Tarefa adicionada com sucesso!";
+        confirmationMsg.classList.remove('hidden');
+        setTimeout(() => {
+            confirmationMsg.classList.add('hidden');
+        }, 2000); // Ocultar após 2 segundos
+
+        // Limpar o campo de entrada
+        taskInput.value = '';
     }
 });
 
-function updateTaskList(tasks) {
-    const taskList = document.getElementById('task-list');
-    taskList.innerHTML = '';
-
-    tasks.forEach((task, index) => {
-        const li = document.createElement('li');
-        li.textContent = task;
-        li.addEventListener('click', () => deleteTask(index));
-        taskList.appendChild(li);
-    });
+// Função para excluir uma tarefa
+function deleteTask(button) {
+    const row = button.parentElement.parentElement;
+    row.remove();
 }
-
-function deleteTask(index) {
-    fetch(`/delete-task/${index}`, {
-        method: 'DELETE'
-    })
-    .then(response => response.json())
-    .then(data => {
-        updateTaskList(data.tasks);
-    });
-}
-
-window.onload = () => {
-    fetch('/tasks')
-    .then(response => response.json())
-    .then(data => {
-        updateTaskList(data.tasks);
-    });
-};

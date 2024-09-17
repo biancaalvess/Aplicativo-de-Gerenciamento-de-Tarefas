@@ -1,32 +1,49 @@
-const express = require('express');
-const app = express();
+// Obter os elementos do DOM
+const taskInput = document.getElementById('taskInput');
+const addTaskBtn = document.getElementById('addTaskBtn');
+const taskTableBody = document.querySelector('#taskTable tbody');
+const confirmationMsg = document.getElementById('confirmationMsg');
 
-app.use(express.json());
-app.use(express.static('public'));
+let taskCount = 0;
 
-let tasks = [];
+// Adicionar tarefa
+addTaskBtn.addEventListener('click', () => {
+    const taskText = taskInput.value.trim();
 
-// Rota para obter as tarefas
-app.get('/tasks', (req, res) => {
-    res.json({ tasks });
+    if (taskText !== "") {
+        // Incrementar o contador de tarefas
+        taskCount++;
+
+        // Criar uma nova linha na tabela
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td>${taskCount}</td>
+            <td>${taskText}</td>
+            <td><button onclick="deleteTask(this)">Excluir</button></td>
+        `;
+        taskTableBody.appendChild(newRow);
+
+        // Exibir mensagem de confirmação
+        confirmationMsg.textContent = "Tarefa adicionada com sucesso!";
+        confirmationMsg.classList.remove('hidden');
+        setTimeout(() => {
+            confirmationMsg.classList.add('hidden');
+        }, 2000); // Ocultar após 2 segundos
+
+        // Limpar o campo de entrada
+        taskInput.value = '';
+    } else {
+        // Se o campo estiver vazio, exibir uma mensagem de erro
+        confirmationMsg.textContent = "Por favor, insira uma tarefa!";
+        confirmationMsg.classList.remove('hidden');
+        setTimeout(() => {
+            confirmationMsg.classList.add('hidden');
+        }, 2000); // Ocultar após 2 segundos
+    }
 });
 
-// Rota para adicionar tarefa
-app.post('/add-task', (req, res) => {
-    const { task } = req.body;
-    tasks.push(task);
-    res.json({ tasks });
-});
-
-// Rota para deletar tarefa
-app.delete('/delete-task/:index', (req, res) => {
-    const index = req.params.index;
-    tasks.splice(index, 1);
-    res.json({ tasks });
-});
-
-// Iniciar o servidor
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
-});
+// Função para excluir uma tarefa
+function deleteTask(button) {
+    const row = button.parentElement.parentElement;
+    row.remove();
+}

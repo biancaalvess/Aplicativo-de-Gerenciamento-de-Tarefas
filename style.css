@@ -1,29 +1,156 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
     background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.app-container {
+    width: 90%;
+    max-width: 600px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
     text-align: center;
 }
 
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
+header h1 {
+    margin: 0;
+    color: #333;
 }
 
-input, button {
+.task-input {
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    width: calc(100% - 120px);
     padding: 10px;
-    margin: 10px;
+    border: 2px solid #007bff;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
+input[type="text"]:focus {
+    border-color: #0056b3;
 }
 
-li {
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.confirmation-msg {
+    color: green;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #007bff;
+    color: white;
+}
+
+th, td {
     padding: 10px;
-    background: #eee;
-    margin: 5px 0;
+    border: 1px solid #ddd;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+button.delete-btn {
+    padding: 5px 10px;
+    background-color: red;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button.delete-btn:hover {
+    background-color: darkred;
+}
+
+footer {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+
+/* Centralizar a tabela */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Tabela compacta e centralizada */
+.compact-table {
+    width: 70%; /* Ajuste a largura conforme necessário */
+    max-width: 800px; /* Define uma largura máxima para a tabela */
+    margin-top: 20px;
+    border-collapse: collapse;
+    text-align: center; /* Centraliza o texto dentro das células */
+}
+
+/* Cabeçalhos e células */
+.compact-table th, .compact-table td {
+    padding: 20px 30px;
+    border: 5px solid #ddd;
+}
+
+.compact-table .task-header {
+    width: 70%; /* Ajuste a largura conforme necessário */
+}
+
+.compact-table .action-header {
+    width: 70%; /* Ajuste a largura conforme necessário */
+}
+
+.compact-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.compact-table button.delete-btn {
+    padding: 5px 10px;
+    background-color: red;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.compact-table button.delete-btn:hover {
+    background-color: darkred;
 }

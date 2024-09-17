@@ -1,20 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Manager</title>
+    <title>Gerenciamento de Tarefas</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Gerenciamento de Tarefas</h1>
-        <input type="text" id="new-task" placeholder="Nova tarefa">
-        <button id="add-task-btn">Adicionar Tarefa</button>
-
-        <ul id="task-list"></ul>
+    <div class="app-container">
+        <header>
+            <h1>Gerenciamento de Tarefas</h1>
+        </header>
+        <main>
+            <div class="task-input">
+                <br>
+                <input type="text" id="taskInput" placeholder="Digite sua tarefa" required>
+                <br>
+                <br>
+                <button id="addTaskBtn">Adicionar</button>
+            </div>
+            <div class="confirmation-msg hidden">Tarefa adicionada com sucesso!</div>
+            <table id="taskTable" class="compact-table">
+                <thead>
+                    <tr>
+                        <th class="task-header">Posição</th>
+                        <th class="task-header">Tarefa</th>
+                        <th class="action-header">Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Tarefas serão adicionadas aqui -->
+                </tbody>
+            </table>
+        </main>
+        <footer>
+            <p>&copy; 2024 Gerenciamento de Tarefas</p>
+        </footer>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
